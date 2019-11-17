@@ -1,0 +1,59 @@
+package cn.bbs.backgroundservlet;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.UUID;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
+import net.sf.json.JSONObject;
+@MultipartConfig
+@WebServlet("/imageServlet")
+public class ImageServlet extends HttpServlet{
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
+		 HashMap<String, Integer> map=new HashMap<String, Integer>();
+			String path = req.getServletContext().getRealPath("/image/");
+			System.out.println(path);
+			Path file = Paths.get(path);
+			if(!Files.exists(file)) {
+				Files.createDirectory(file);
+			}
+			Part part=req.getPart("file");
+			if(part.getSize()==0) {
+				map.put("code",1);
+		    	JSONObject.fromObject(map).write(resp.getWriter());
+				return;
+
+			}
+			
+			String name = part.getSubmittedFileName().trim();
+			int index=name.lastIndexOf(".");
+			String suffix="";
+			if(index>0) {
+				 suffix= name.substring(index);
+			}
+//			String savepath=path+UUID.randomUUID()+suffix;
+			String savepath=path+"["+UUID.randomUUID().toString().substring(0,4)+"]"+name;
+			System.out.println(savepath);
+	        part.write(savepath);
+	       
+	    	map.put("code", 0);
+	    	JSONObject.fromObject(map).write(resp.getWriter());
+		
+	}
+
+}
