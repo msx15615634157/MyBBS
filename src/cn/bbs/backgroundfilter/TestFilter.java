@@ -26,7 +26,7 @@ public class TestFilter implements Filter {
 		HttpServletRequest req=(HttpServletRequest)request;
 		HttpSession session = req.getSession();
 		if(session.getAttribute("account")==null) {
-			session.setAttribute("userid", 1001);
+			session.setAttribute("account", "1001");
 		}
 		chain.doFilter(request, response);
 		System.out.println("01¹ıÂËÆ÷½áÊø");

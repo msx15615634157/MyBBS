@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <c3p0-config>
 	<default-config>
-		<property name="jdbcUrl">jdbc:mysql://localhost:3306/student?useSSL=false&amp;serverTimezone=UTC</property>
+		<property name="jdbcUrl">jdbc:mysql://localhost:3306/bbs?useSSL=false&amp;serverTimezone=UTC</property>
 		<property name="driverClass">com.mysql.jdbc.Driver</property>
 		<property name="user">root</property>
 		<property name="password">admin</property>
@@ -11,10 +11,6 @@
 		<property name="initialPoolSize">3</property>	
 		<!--两次连接中间隔时间，单位毫秒。Default: 1000 -->
 		<property name="acquireRetryDelay">1000</property>
-		
-		<!--连接关闭时默认将所有未提交的操作回滚。Default: false -->
-		<property name="autoCommitOnClose">false</property>
-		
 		<property name="maxPoolSize">15</property>
 	</default-config>
 

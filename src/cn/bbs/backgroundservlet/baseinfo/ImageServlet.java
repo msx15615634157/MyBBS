@@ -1,4 +1,4 @@
-package cn.bbs.backgroundservlet;
+package cn.bbs.backgroundservlet.baseinfo;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class ImageServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("utf-8");
-		 HashMap<String, Integer> map=new HashMap<String, Integer>();
+		 HashMap<String, Object> map=new HashMap<String, Object>();
 			String path = req.getServletContext().getRealPath("/image/");
 			System.out.println(path);
 			Path file = Paths.get(path);
@@ -52,6 +52,7 @@ public class ImageServlet extends HttpServlet{
 	        part.write(savepath);
 	       
 	    	map.put("code", 0);
+	    	map.put("img", savepath.substring(savepath.indexOf("image")));
 	    	JSONObject.fromObject(map).write(resp.getWriter());
 		
 	}
