@@ -71,8 +71,8 @@ new Vue({
 	el:"#app"
 	,data:{
 		activeIndex: '1'
-		,username:"孟双喜"
-		,img:"https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+		,username:"未知用户"
+		,img:""
 		,iframe:""
 	}
 	,methods: {
@@ -92,10 +92,24 @@ new Vue({
 	    	   }
 		    
 	        }
-	      ,modifyimg(){
-	    	
+	      , indexs(){
+              this.$http.post('queryAccountInfo')
+              .then(function(res){
+            	  let obj=res.data.data
+            	  console.log(obj)
+            	  this.username=obj.username
+            	  this.img=obj.img
+            	  
+                  
+              })
+              .catch(function(error){
+                  console.log(error);
+              });
+      }
 	      }
-	      }
+	,created(){
+        this.indexs();
+    }
 })
 </script>
 </html>
